@@ -25,10 +25,11 @@ final COMPRESSOR = "1.0.3"
 final TIMBER = "4.1.2"
 final MULTIDEX = "1.0.1"
 final KOTTERKNIFE = "0.1.0-SNAPSHOT"
+final FIREBASE = "10.0.0"
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "24.0.0"
+    buildToolsVersion "25.0.0"
     defaultConfig {
         applicationId "com.github.scrobot.kotlin_boilerplate"
         minSdkVersion 16
@@ -38,20 +39,26 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/ASL2.0'
+    }
+
     buildTypes {
+        debug {
+            versionNameSuffix ".dev"
+            minifyEnabled false
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        development {
-            debuggable true
-            minifyEnabled false
-        }
     }
     sourceSets {
-
         main.java.srcDirs += 'src/main/kotlin'
-
         test.java.srcDir 'src/test/kotlin'
     }
     productFlavors {
@@ -69,61 +76,66 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     // Kotlin
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile "org.jetbrains.anko:anko-sdk15:$anko_version"
-    compile "org.jetbrains.anko:anko-support-v4:$anko_version"
-    compile "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
+    compile ("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
+            "org.jetbrains.anko:anko-sdk15:$anko_version",
+            "org.jetbrains.anko:anko-support-v4:$anko_version",
+            "org.jetbrains.anko:anko-appcompat-v7:$anko_version")
     // Dagger2
     kapt "com.google.dagger:dagger-compiler:$DUGGER_VERSION"
     compile "com.google.dagger:dagger:$DUGGER_VERSION"
     // Google support library
-    compile "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"
-    compile "com.android.support:cardview-v7:$SUPPORT_LIBRARY_VERSION"
-    compile "com.android.support:design:$SUPPORT_LIBRARY_VERSION"
-    compile "com.android.support:support-v4:$SUPPORT_LIBRARY_VERSION"
-    compile "com.android.support:recyclerview-v7:$SUPPORT_LIBRARY_VERSION"
+    compile ("com.google.android.gms:play-services-analytics:$GOOGLE_PLAY_SERVIES",
+            "com.google.android.gms:play-services-gcm:$GOOGLE_PLAY_SERVIES")
     // RxJava/RxAndroid
-    compile "io.reactivex:rxandroid:$RXANROID"
-    compile "io.reactivex:rxjava:$RXJAVA"
-    compile "io.reactivex:rxkotlin:$RX_KOTLIN"
-    compile "com.jakewharton.rxbinding:rxbinding:$RX_BINDING"
-    compile "com.jakewharton.rxbinding:rxbinding-support-v4:$RX_BINDING"
-    compile "com.jakewharton.rxbinding:rxbinding-appcompat-v7:$RX_BINDING"
-    compile "com.jakewharton.rxbinding:rxbinding-design:$RX_BINDING"
-    compile "com.jakewharton.rxbinding:rxbinding-recyclerview-v7:$RX_BINDING"
+    compile ("io.reactivex:rxandroid:$RXANROID",
+            "io.reactivex:rxjava:$RXJAVA",
+            "io.reactivex:rxkotlin:$RX_KOTLIN",
+            "com.jakewharton.rxbinding:rxbinding:$RX_BINDING",
+            "com.jakewharton.rxbinding:rxbinding-support-v4:$RX_BINDING",
+            "com.jakewharton.rxbinding:rxbinding-appcompat-v7:$RX_BINDING",
+            "com.jakewharton.rxbinding:rxbinding-design:$RX_BINDING",
+            "com.jakewharton.rxbinding:rxbinding-recyclerview-v7:$RX_BINDING")
     // Paperparcel
     kapt "com.github.grandstaish.paperparcel:compiler:$PAPERPARCEL"
-    compile "com.github.grandstaish.paperparcel:paperparcel:$PAPERPARCEL"
-    compile "com.github.grandstaish.paperparcel:paperparcel-kotlin:$PAPERPARCEL"
+    compile ("com.github.grandstaish.paperparcel:paperparcel:$PAPERPARCEL",
+            "com.github.grandstaish.paperparcel:paperparcel-kotlin:$PAPERPARCEL")
     // GSON
     compile "com.google.code.gson:gson:$GSON"
     // lang3
     compile "org.apache.commons:commons-lang3:$COMMONS_LANG3"
     // Images
-    compile "com.github.bumptech.glide:glide:$GLIDE"
-    compile "id.zelory:compressor:$COMPRESSOR"
+    compile ("com.github.bumptech.glide:glide:$GLIDE",
+            "id.zelory:compressor:$COMPRESSOR")
     // Annotations
     compile "org.glassfish:javax.annotation:$JAVAX_ANNOTATION"
     // Validator
     compile "com.mobsandgeeks:android-saripaar:$SARIPAAR"
-    // Google
-    compile "com.google.android.gms:play-services:$GOOGLE_PLAY_SERVIES"
     // Network
-    compile "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
-    compile "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
-    compile "com.squareup.retrofit2:adapter-rxjava:$RETROFIT_VERSION"
-    compile "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION"
-    compile "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
+    compile ("com.squareup.retrofit2:retrofit:$RETROFIT_VERSION",
+            "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION",
+            "com.squareup.retrofit2:adapter-rxjava:$RETROFIT_VERSION",
+            "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION",
+            "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION")
     // Misc
-    compile "com.jakewharton.timber:timber:$TIMBER"
-    compile "com.android.support:multidex:$MULTIDEX"
-    compile "com.jakewharton:kotterknife:$KOTTERKNIFE"
+    compile ("com.jakewharton.timber:timber:$TIMBER",
+            "com.android.support:multidex:$MULTIDEX",
+            "com.jakewharton:kotterknife:$KOTTERKNIFE")
+    // Firebase
+    compile ("com.google.firebase:firebase-core:$FIREBASE",
+            "com.google.firebase:firebase-crash:$FIREBASE",
+            "com.google.firebase:firebase-messaging:$FIREBASE",
+            "com.google.firebase:firebase-config:$FIREBASE",
+            "com.google.firebase:firebase-appindexing:$FIREBASE")
     // JUnit|Robolectic|Other tests
-    testCompile "junit:junit:$JUNIT_VERSION"
-    testCompile "org.mockito:mockito-core:$MOCKITO"
-    testCompile 'org.assertj:assertj-core:3.0.0'
-    testCompile 'org.robolectric:robolectric:3.1-rc1'
-    testCompile 'org.robolectric:shadows-support-v4:3.1-rc1'
+    testCompile ("junit:junit:$JUNIT_VERSION",
+            "org.mockito:mockito-core:$MOCKITO",
+            'org.assertj:assertj-core:3.0.0',
+            'org.robolectric:robolectric:3.1-rc1',
+            'org.robolectric:shadows-support-v4:3.1-rc1')
 }
 
 apply plugin: 'com.google.gms.google-services'
+
+
+//    compile "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"
+//    compile "com.android.support:design:$SUPPORT_LIBRARY_VERSION"

@@ -1,4 +1,4 @@
-package ru.five_dots.kotlin_boilerplate
+package com.github.scrobot.kotlin_boilerplate
 
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
