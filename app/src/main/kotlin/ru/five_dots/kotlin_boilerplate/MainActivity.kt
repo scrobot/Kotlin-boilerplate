@@ -1,40 +1,32 @@
 package com.github.scrobot.kotlin_boilerplate
 
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
-import android.view.View
-import android.view.Menu
-import android.view.MenuItem
+import android.support.v7.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
+import ru.five_dots.kotlin_boilerplate.Repository
+import ru.five_dots.kotlin_boilerplate.util.BooksAdapter
 
 class MainActivity : AppCompatActivity() {
+
+    val adapter: BooksAdapter = BooksAdapter()
+    val repository = Repository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val toolbar = findViewById(R.id.toolbar) as Toolbar?
         setSupportActionBar(toolbar)
+
+        books.layoutManager = LinearLayoutManager(this)
+        books.adapter = adapter
+
+        loadBooks()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        val id = item.itemId
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true
+    private fun loadBooks() {
+        repository.loadPerPage(1)?.subscribe{
+            adapter.addBooks(it)
         }
-
-        return super.onOptionsItemSelected(item)
     }
 }
