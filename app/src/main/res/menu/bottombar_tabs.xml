@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/tab_chars"
+        android:icon="@drawable/ic_tab_chars"
+        android:title="@string/tabs.chars"/>
+    <item
+        android:id="@+id/tab_locations"
+        android:icon="@drawable/ic_tab_location"
+        android:title="@string/tabs.locations"/>
+    <item
+        android:id="@+id/tab_episodes"
+        android:icon="@drawable/ic_tab_episodes"
+        android:title="@string/tabs.episodes"/>
+</menu>

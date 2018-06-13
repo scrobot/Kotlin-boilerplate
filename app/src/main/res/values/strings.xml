@@ -1,4 +1,15 @@
 <resources>
-    <string name="app_name">Kotlin-boilerplate</string>
+    <string name="app_name">Rick And Morty</string>
     <string name="action_settings">Settings</string>
+
+    <!--TABS STRING-->
+    <string name="tabs.chars">characters</string>
+    <string name="tabs.locations">locations</string>
+    <string name="tabs.episodes">episodes</string>
+
+    <!-- CHARS -->
+    <string name="chars.status">Status: <b>%s</b></string>
+    <string name="chars.gender">Gender: <b>%s</b></string>
+    <string name="chars.species">Species: <b>%s</b></string>
+
 </resources>

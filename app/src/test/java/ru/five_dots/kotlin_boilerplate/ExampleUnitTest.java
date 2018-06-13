@@ -1,4 +1,4 @@
-package ru.five_dots.kotlin_boilerplate;
+package com.github.scrobot.kotlin_boilerplate;
 
 import org.junit.Test;
 

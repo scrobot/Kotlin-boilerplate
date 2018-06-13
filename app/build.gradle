@@ -1,141 +1,129 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'realm-android'
+apply from: "../versionCode.gradle"
 
-//Dependencies
-final SUPPORT_LIBRARY_VERSION = '25.0.1'
-final DUGGER_VERSION = "2.0.2"
-final JUNIT_VERSION = "4.12"
-final JAVAX_ANNOTATION = "10.0-b28"
-final RXJAVA = "1.1.6"
-final RXANROID = "1.2.1"
-final GLIDE = "3.7.0"
-final COMMONS_LANG3 = "3.3.2"
-final GSON = "2.4"
-final SARIPAAR = "2.0.3"
-final GOOGLE_PLAY_SERVIES = "10.0.0"
-final MOCKITO = "2.1.0"
-final PAPERPARCEL = "1.0.0"
-final RX_KOTLIN = "0.60.0"
-final RX_BINDING = "0.4.0"
-final OKHTTP_VERSION = '3.3.1'
-final RETROFIT_VERSION = '2.1.0'
-final COMPRESSOR = "1.0.3"
-final TIMBER = "4.1.2"
-final MULTIDEX = "1.0.1"
-final KOTTERKNIFE = "0.1.0-SNAPSHOT"
-final FIREBASE = "10.0.0"
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-kapt'
+
+apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    compileSdkVersion 27
     defaultConfig {
         applicationId "com.github.scrobot.kotlin_boilerplate"
         minSdkVersion 16
-        targetSdkVersion 25
-        versionCode 7
-        versionName "0.2.1"
+        targetSdkVersion 27
+        versionName VERSION_NAME
+        versionCode Integer.parseInt(VERSION_CODE)
+        vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
-
-    packagingOptions {
-        exclude 'META-INF/DEPENDENCIES'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/ASL2.0'
+    androidExtensions {
+        experimental = true
     }
+    lintOptions {
 
-    buildTypes {
-        debug {
-            versionNameSuffix ".dev"
-            minifyEnabled false
-        }
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+        checkReleaseBuilds false
+
     }
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
         test.java.srcDir 'src/test/kotlin'
     }
-    productFlavors {
-    }
-}
-
-// Required for annotation processing plugins like Dagger
-kapt {
-    generateStubs = true
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    // Kotlin
-    compile ("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
-            "org.jetbrains.anko:anko-sdk15:$anko_version",
-            "org.jetbrains.anko:anko-support-v4:$anko_version",
-            "org.jetbrains.anko:anko-appcompat-v7:$anko_version")
-    // Dagger2
-    kapt "com.google.dagger:dagger-compiler:$DUGGER_VERSION"
-    compile "com.google.dagger:dagger:$DUGGER_VERSION"
-    // Google support library
-    compile ("com.google.android.gms:play-services-analytics:$GOOGLE_PLAY_SERVIES",
-            "com.google.android.gms:play-services-gcm:$GOOGLE_PLAY_SERVIES")
-    // RxJava/RxAndroid
-    compile ("io.reactivex:rxandroid:$RXANROID",
-            "io.reactivex:rxjava:$RXJAVA",
-            "io.reactivex:rxkotlin:$RX_KOTLIN",
-            "com.jakewharton.rxbinding:rxbinding:$RX_BINDING",
-            "com.jakewharton.rxbinding:rxbinding-support-v4:$RX_BINDING",
-            "com.jakewharton.rxbinding:rxbinding-appcompat-v7:$RX_BINDING",
-            "com.jakewharton.rxbinding:rxbinding-design:$RX_BINDING",
-            "com.jakewharton.rxbinding:rxbinding-recyclerview-v7:$RX_BINDING")
-    // Paperparcel
-    kapt "com.github.grandstaish.paperparcel:compiler:$PAPERPARCEL"
-    compile ("com.github.grandstaish.paperparcel:paperparcel:$PAPERPARCEL",
-            "com.github.grandstaish.paperparcel:paperparcel-kotlin:$PAPERPARCEL")
-    // GSON
-    compile "com.google.code.gson:gson:$GSON"
-    // lang3
-    compile "org.apache.commons:commons-lang3:$COMMONS_LANG3"
-    // Images
-    compile ("com.github.bumptech.glide:glide:$GLIDE",
-            "id.zelory:compressor:$COMPRESSOR")
-    // Annotations
-    compile "org.glassfish:javax.annotation:$JAVAX_ANNOTATION"
-    // Validator
-    compile "com.mobsandgeeks:android-saripaar:$SARIPAAR"
+    ext.ANDROID_SUPPORT = '27.1.1'
+    ext.RX_SUPPORT = '2.0.0'
+    ext.RETROFIT = '2.3.0'
+    ext.ANDROID_ARCH = '1.1.1'
+    ext.TOOTHPICK = '1.1.1'
+    ext.ROOM = '1.0.0'
+    ext.GLIDE = '4.6.1'
+    ext.FIREBASE_GOOGLE_SERVICES = '15.0.0'
+    ext.KOIN = '0.9.3'
+
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // Support library
+    implementation "com.android.support:appcompat-v7:$ANDROID_SUPPORT"
+    implementation "com.android.support:animated-vector-drawable:$ANDROID_SUPPORT"
+    implementation "com.android.support:customtabs:$ANDROID_SUPPORT"
+    implementation "com.android.support:design:$ANDROID_SUPPORT"
+    implementation "com.android.support:support-v4:$ANDROID_SUPPORT"
+    implementation "com.android.support:support-vector-drawable:$ANDROID_SUPPORT"
+    implementation "com.android.support:support-media-compat:$ANDROID_SUPPORT"
+    implementation "com.android.support:recyclerview-v7:$ANDROID_SUPPORT"
+    implementation "com.android.support:cardview-v7:$ANDROID_SUPPORT"
+    implementation "com.android.support:support-dynamic-animation:$ANDROID_SUPPORT"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.1'
+    implementation 'com.android.support:multidex:1.0.3'
+
+    // Kotlin improvements
+    implementation 'androidx.core:core-ktx:0.3'
+
+    // RxJava
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
+    implementation "com.jakewharton.rxbinding2:rxbinding:$RX_SUPPORT"
+    implementation "com.jakewharton.rxrelay2:rxrelay:$RX_SUPPORT"
+    implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'
+    implementation 'com.github.frangsierra:rx2firebase:1.4.0'
+
+    // Timber
+    implementation 'com.jakewharton.timber:timber:4.6.1'
+
+    // Time
+    implementation 'net.danlew:android.joda:2.9.9.2'
+
     // Network
-    compile ("com.squareup.retrofit2:retrofit:$RETROFIT_VERSION",
-            "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION",
-            "com.squareup.retrofit2:adapter-rxjava:$RETROFIT_VERSION",
-            "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION",
-            "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION")
-    // Misc
-    compile ("com.jakewharton.timber:timber:$TIMBER",
-            "com.android.support:multidex:$MULTIDEX",
-            "com.jakewharton:kotterknife:$KOTTERKNIFE")
-    // Firebase
-    compile ("com.google.firebase:firebase-core:$FIREBASE",
-            "com.google.firebase:firebase-crash:$FIREBASE",
-            "com.google.firebase:firebase-messaging:$FIREBASE",
-            "com.google.firebase:firebase-config:$FIREBASE",
-            "com.google.firebase:firebase-appindexing:$FIREBASE")
-    // JUnit|Robolectic|Other tests
-    testCompile ("junit:junit:$JUNIT_VERSION",
-            "org.mockito:mockito-core:$MOCKITO",
-            'org.assertj:assertj-core:3.0.0',
-            'org.robolectric:robolectric:3.1-rc1',
-            'org.robolectric:shadows-support-v4:3.1-rc1')
+    implementation 'com.squareup.okhttp3:okhttp:3.9.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+    implementation "com.squareup.retrofit2:retrofit:$RETROFIT"
+    implementation "com.squareup.retrofit2:converter-gson:$RETROFIT"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$RETROFIT"
+
+    //Cicerone
+    implementation 'ru.terrakok.cicerone:cicerone:2.1.0'
+
+    // Image Handlers
+    implementation "com.github.bumptech.glide:glide:$GLIDE"
+    kapt "com.github.bumptech.glide:compiler:$GLIDE"
+    implementation 'jp.wasabeef:glide-transformations:3.1.1'
+
+    // JSON
+    implementation 'com.google.code.gson:gson:2.8.2'
+
+    // Architecture components
+    implementation "android.arch.lifecycle:extensions:$ANDROID_ARCH"
+    implementation "android.arch.lifecycle:viewmodel:$ANDROID_ARCH"
+    implementation "android.arch.lifecycle:livedata:$ANDROID_ARCH"
+    kapt "android.arch.lifecycle:compiler:$ANDROID_ARCH"
+//    implementation "android.arch.persistence.room:runtime:$ROOM"
+//    kapt "android.arch.persistence.room:compiler:$ROOM"
+//    implementation "android.arch.paging:runtime:$ROOM-alpha6"
+
+    // DI
+    implementation "org.koin:koin-android:$KOIN"
+    implementation "org.koin:koin-android-architecture:$KOIN"
+
+    // Views customizations
+    implementation 'com.github.ittianyu:BottomNavigationViewEx:1.2.4'
+
+    // Leak Canary
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+
+    // Testing env
+    testImplementation 'org.mockito:mockito-core:2.11.0'
+    testImplementation "android.arch.core:core-testing:$ANDROID_ARCH"
+    testImplementation "android.arch.persistence.room:testing:$ROOM"
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'org.mockito:mockito-core:2.11.0'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'com.agoda.kakao:kakao:1.2.0'
 }
-
-//apply plugin: 'com.google.gms.google-services'
-
-
-//    compile "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"
-//    compile "com.android.support:design:$SUPPORT_LIBRARY_VERSION"
